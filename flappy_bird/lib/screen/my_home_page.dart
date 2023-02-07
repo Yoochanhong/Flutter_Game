@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void startGame() {
     gameHasStarted = true;
-    Timer.periodic(Duration(milliseconds: 10), (timer) {
+    Timer.periodic(const Duration(milliseconds: 10), (timer) {
       height = gravity * time * time + velocity * time;
       setState(() {
         birdY = initialPos - height;
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Colors.brown,
-            title: Center(
+            title: const Center(
               child: Text(
                 'G A M E  O V E R',
                 style: TextStyle(color: Colors.white),
@@ -62,9 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Container(
-                    padding: EdgeInsets.all(7),
+                    padding: const EdgeInsets.all(7),
                     color: Colors.white,
-                    child: Text(
+                    child: const Text(
                       'PLAY AGAIN',
                       style: TextStyle(color: Colors.brown),
                     ),
@@ -111,9 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Container(
-                        alignment: Alignment(0, -0.5),
+                        alignment: const Alignment(0, -0.5),
                         child: Text(gameHasStarted ? '' : 'T A P  T O  P L A Y',
-                            style: TextStyle(color: Colors.white)),
+                            style: const TextStyle(color: Colors.white)),
                       ),
                     ],
                   ),
