@@ -28,14 +28,13 @@ class _MyHomePageState extends State<MyHomePage> {
       print(birdY);
       if (birdIsDead()) {
         timer.cancel();
-        gameHasStarted = false;
         _showDialog();
       }
       time += 0.01;
     });
   }
 
-  void resetGame(){
+  void resetGame() {
     Navigator.pop(context);
     setState(() {
       birdY = 0;
@@ -44,8 +43,37 @@ class _MyHomePageState extends State<MyHomePage> {
       initialPos = birdY;
     });
   }
+
   void _showDialog() {
-    
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.brown,
+            title: Center(
+              child: Text(
+                'G A M E  O V E R',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            actions: [
+              GestureDetector(
+                onTap: resetGame,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    padding: EdgeInsets.all(7),
+                    color: Colors.white,
+                    child: Text(
+                      'PLAY AGAIN',
+                      style: TextStyle(color: Colors.brown),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   bool birdIsDead() {
