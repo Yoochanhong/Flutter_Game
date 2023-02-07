@@ -16,22 +16,29 @@ class _MyHomePageState extends State<MyHomePage> {
   double gravity = -4.9;
   double velocity = 3.5;
 
-  void jump() {
+  bool gameHasStarted = false;
+
+  void startGame() {
+    gameHasStarted = true;
     Timer.periodic(Duration(milliseconds: 10), (timer) {
       height = gravity * time * time + velocity * time;
       setState(() {
         birdY = initialPos - height;
       });
       print(birdY);
-      if (birdY  < -1) timer.cancel();
+      if (birdY < -1 || birdY > 1) timer.cancel();
       time += 0.01;
     });
+  }
+
+  void jump() {
+    time = 0;
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: jump,
+      onTap: gameHasStarted ? jump : startGame,
       child: Scaffold(
         body: Column(
           children: [
