@@ -26,13 +26,38 @@ class _MyHomePageState extends State<MyHomePage> {
         birdY = initialPos - height;
       });
       print(birdY);
-      if (birdY < -1 || birdY > 1) timer.cancel();
+      if (birdIsDead()) {
+        timer.cancel();
+        gameHasStarted = false;
+        _showDialog();
+      }
       time += 0.01;
     });
   }
 
+  void resetGame(){
+    Navigator.pop(context);
+    setState(() {
+      birdY = 0;
+      gameHasStarted = false;
+      time = 0;
+      initialPos = birdY;
+    });
+  }
+  void _showDialog() {
+    
+  }
+
+  bool birdIsDead() {
+    if (birdY < -1 || birdY > 1) return true;
+    return false;
+  }
+
   void jump() {
-    time = 0;
+    setState(() {
+      time = 0;
+      initialPos = birdY;
+    });
   }
 
   @override
@@ -56,7 +81,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           height: 50,
                           color: Colors.yellow,
                         ),
-                      )
+                      ),
+                      Container(
+                        alignment: Alignment(0, -0.5),
+                        child: Text(gameHasStarted ? '' : 'T A P  T O  P L A Y',
+                            style: TextStyle(color: Colors.white)),
+                      ),
                     ],
                   ),
                 ),
